@@ -1,6 +1,8 @@
 function createTag(tagName, options = {}) {
 	const tag = document.createElement(tagName)
-	const { className, text, attributes, ...properties } = options
+	const { className, text, attributes = {}, ...properties } = options
+
+	Object.assign(tag, properties)
 
 	if (text != undefined) tag.textContent = text
 	if (className) {
@@ -9,8 +11,6 @@ function createTag(tagName, options = {}) {
 			: className.split(/\s+/)
 		tag.classList.add(...classes)
 	}
-
-	Object.assign(tag, properties)
 
 	for (let [name, value] of Object.entries(attributes)) {
 		tag.setAttribute(name, value)
